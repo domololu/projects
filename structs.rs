@@ -1,67 +1,120 @@
-use num_format::{Locale, ToFormattedString};
+fn main() {
+    let mut dive: Submarine = create_submarine(String::from("Dive"));
 
-fn main () {
-    enum PropertyType {
-        Residential,
-        Commercial,
-        Industrial,
-        Land,
-    }
-    enum Rooms {
-        Bedroom(i32),
-        Bathroom(i32),
-        ConferenceRoom(i32),
-        Office(i32),
+    {
+        let _x: &String = &dive.name;
+        dive.weight;
+        dive.length;
+        dive.height;
+        dive.minimum_depth;
 
+        dive.name();
+        dive.weight();
+        dive.length();
+        dive.height();
+        dive.minimum_depth();
     }
-    /*enum Size {
-        Acres(i32),
-        SquareFeet(i32),
+
+    // dive.weight() = 5;
+
+    dive.change_name(String::from("Glide"));
+    dive.change_weight(5);
+    dive.change_length(6);
+    dive.change_height(7);
+    dive.change_minimum_depth(8);
+
+    // dive.weight = 5;
+
+    println!(
+        "The properties' values have been redefined. The new values are:
+        name: {},
+        weight: {},
+        length: {},
+        height: {},
+        minimum_depth: {}",
+             dive.name(), dive.weight(), dive.length(), dive.height(), dive.minimum_depth()
+    );
+}
+
+
+struct Submarine {
+    name: String,
+    weight: i32,
+    length: i32,
+    height: i32,
+    minimum_depth: i32,
+}
+
+
+
+impl Submarine {
+
+    fn name(&self) -> &String {
+        &self.name
+    }
+
+    /* fn change<T>(&mut self, _a:T, _b:&str) {
+        // for another time!
     }
     */
 
-    enum Location {
-        City(String),
-        Town(String),
-        Unincorporated(String),
-        ClosestTo(String)
-    }
-    struct Property<const T: usize, const Y:usize> {
-        property_type: PropertyType,
-        room: [Rooms; T],
-        size: i32,
-        address: [Location; Y],
-        // price: i32,
-    }
-    enum Price {
-        USD(i32),
-        PoundSterling(i32),
-        Bitcoin(i32),
-        DogeCoin(i32),
+    fn change_name(&mut self, new_name: String) {
+        self.name = new_name;
     }
 
-    fn get_property_price <const T: usize, const Y:usize> (property: Property <T, Y> ) -> String {
-        let price_per_square_foot = 200;
-        let property_price = price_per_square_foot * property.size;
-
-        property_price.to_formatted_string(&Locale::en)
+    fn weight(&self) -> i32 {
+        self.weight
     }
 
-    let farm_1 = Property {
-        property_type: PropertyType::Industrial,
-        room: [Rooms::Bedroom(5), Rooms::Bathroom(3)],
-        size: 130680,
-        address: [Location::Unincorporated(String::from("Big Sur"))],
+    fn change_weight(&mut self, a: i32) {
+        self.weight = a;
+    }
+
+    fn length(&self) -> i32 {
+        self.length
+    }
+
+    fn change_length(&mut self, a: i32) {
+        self.length = a;
+    }
+
+    fn height(&self) -> i32 {
+        self.height
+    }
+
+    fn change_height(&mut self, a: i32) {
+        self.height = a;
+    }
+
+    fn minimum_depth(&self) -> i32 {
+        self.minimum_depth
+    }
+
+    fn change_minimum_depth(&mut self, a: i32) {
+        self.minimum_depth = a;
+    }
+}
+
+
+
+fn create_submarine(name: String) -> Submarine {
+    println!(
+        "The properties of the {name} submarine and their values are:
+        name: {name},
+        weight: 0,
+        length: 0,
+        height: 0,
+        minimum_depth:0,
+        "
+    );
+
+    let sub: Submarine = Submarine {
+        name,
+        weight: 0,
+        length: 0,
+        height: 0,
+        minimum_depth: 0,
     };
 
-    let headquarters = Property {
-        property_type:PropertyType::Commercial,
-        room: [Rooms::ConferenceRoom(7), Rooms::Office(10), Rooms::Bathroom(4)],
-        size: 800000,
-        address: [Location::City(String::from("San Francisco"))]
-    };
-
-
-    let a: String = get_property_price(farm_1);
-    let b: String = get_property_price(headquarters);
-    println!("The property price of your farm house is ${a} and the property price of your company's headquarters is ${b}")
+    sub
+}
