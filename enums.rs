@@ -26,7 +26,7 @@ fn main () {
         Unincorporated(String),
         ClosestTo(String)
     }
-    struct Property<const T: usize, const Y:usize> {
+    struct Property<const T: usize, const Y: usize> {
         property_type: PropertyType,
         room: [Rooms; T],
         size: i32,
@@ -40,7 +40,7 @@ fn main () {
         DogeCoin(i32),
     }
 
-    fn get_property_price <const T: usize, const Y:usize> (property: Property <T, Y> ) -> String {
+    fn get_property_price<const T: usize, const Y: usize>(property: &Property<T, Y>) -> String {
         let price_per_square_foot = 200;
         let property_price = price_per_square_foot * property.size;
 
@@ -55,13 +55,14 @@ fn main () {
     };
 
     let headquarters = Property {
-        property_type:PropertyType::Commercial,
+        property_type: PropertyType::Commercial,
         room: [Rooms::ConferenceRoom(7), Rooms::Office(10), Rooms::Bathroom(4)],
         size: 800000,
         address: [Location::City(String::from("San Francisco"))]
     };
 
 
-    let a: String = get_property_price(farm_1);
-    let b: String = get_property_price(headquarters);
-    println!("The property price of your farm house is ${a} and the property price of your company's headquarters is ${b}")
+    let a: String = get_property_price(&farm_1);
+    let b: String = get_property_price(&headquarters);
+    println!("The property price of your farm house is ${a} and the property price of your company's headquarters is ${b}");
+}
